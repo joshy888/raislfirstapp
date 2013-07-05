@@ -1,0 +1,39 @@
+<h1>Find the best suited job for you</h1>
+
+<div class="searchBox" style="margin-top:10px;">
+  <%= form_tag("/jobresults", method: "get") do %>
+      <h3 style="float:left; margin-top: -8px;">Refine your search: &nbsp;</h3>
+      <%= text_field_tag(:keywrd, nil, :placeholder => "Keyword") %>
+      <%= text_field_tag(:loc, nil, :placeholder => "location") %>
+      <%= submit_tag("Find Jobs", style: "height:28px;margin-top:-12px;") %>
+  <% end %>
+</div>
+
+<div class="maincontent" >
+ <div class="jobList">
+    <% unless @jobresults.blank? %>
+
+        <% if @jobresults.ResponseJobSearch.TotalCount == 0 %>
+            No jobs found for your search criteria
+        <% else %>
+
+            <% @jobresults.ResponseJobSearch.Results.JobSearchResult.each do |result| %>
+                <div class="resultItem">
+                  <br>
+                  
+                  <br>
+                  Location : <%= result.Location %>
+                  <br><br>
+                  Descripion : <%= result.DescriptionTeaser %>
+                  <br><br>
+                  <hr>
+                </div>
+            <% end %>
+        <% end %>
+    <% end %>
+    </div>
+</div>
+
+
+
+
